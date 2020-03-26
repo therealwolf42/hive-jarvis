@@ -1,4 +1,4 @@
-FROM keymetrics/pm2:latest-alpine
+FROM keymetrics/pm2:12-alpine
 
 WORKDIR /hive-jarvis
 COPY package*.json yarn.* ecosystem.config.js ./
