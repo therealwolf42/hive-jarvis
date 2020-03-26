@@ -1,17 +1,16 @@
 FROM keymetrics/pm2:latest-alpine
 
 WORKDIR /hive-jarvis
-COPY package*.json ./
-COPY ecosystem.config.js .
+COPY package*.json yarn.* ecosystem.config.js ./
 
-RUN npm install
+# Fix for 'could not get uid/gid'
+RUN npm config set unsafe-perm true
 
-RUN npm install -g typescript pm2
+RUN yarn
+
+RUN yarn global add pm2
 
 COPY . /hive-jarvis
-
-# Compile Typescript
-RUN tsc
 
 # Show current folders
 RUN ls

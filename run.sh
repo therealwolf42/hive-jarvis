@@ -10,7 +10,7 @@
         if [[ $? == 0 ]]; then
             docker start $DOCKER_NAME
         else
-            docker run --name $DOCKER_NAME -t $DOCKER_NAME
+            docker run -d --name $DOCKER_NAME -t $DOCKER_NAME
         fi
     }
 
