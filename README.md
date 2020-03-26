@@ -15,7 +15,7 @@ It is recommended to use Docker.
 
 ```
 git clone https://github.com/therealwolf42/hive-jarvis.git
-cd -jarvis
+cd hive-jarvis
 chmod +x run.sh
 ./run.sh install_docker
 
