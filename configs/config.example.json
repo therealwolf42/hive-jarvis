@@ -1,0 +1,41 @@
+{
+  "RPC_NODES": [
+    "https://anyx.io",
+    "https://api.hivekings.com",
+    "https://api.hive.blog",
+    "https://api.openhive.network"
+  ],
+  "STEEM_ENGINE_API": "https://scot-api.steem-engine.com",
+  "KEY_PAIRS": [
+    {
+      "name": "",
+      "type": "posting",
+      "key": ""
+    },
+    {
+      "name": "",
+      "type": "active",
+      "key": ""
+    },
+    {
+      "name": "",
+      "type": "memo",
+      "key": ""
+    }
+  ],
+  "GENERAL": {
+    "minimum_hive_for_powerup": 0,
+    "minimum_hive_for_transfer": 0,
+    "minimum_hive_for_delegation": 0,
+    "interval_in_minutes": 30,
+    "test_mode": false
+  },
+  "ACCOUNTS": [
+    {
+      "name": "",
+      "claim_rewards": true,
+      "key_account": "",
+      "actions": []
+    }
+  ]
+}

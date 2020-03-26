@@ -1,0 +1,17 @@
+cache:
+  paths:
+  - node_modules/
+
+stages:
+  - test
+
+unit_test:
+  image: node
+  stage: test
+  variables:
+    NODE_ENV: test
+  before_script:
+    - yarn
+  script:
+    - cp configs/config.example.json configs/config.json
+    - yarn test

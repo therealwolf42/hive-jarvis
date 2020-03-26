@@ -1,0 +1,19 @@
+FROM keymetrics/pm2:latest-alpine
+
+WORKDIR /hive-jarvis
+COPY package*.json ./
+COPY ecosystem.config.js .
+
+RUN npm install
+
+RUN npm install -g typescript pm2
+
+COPY . /hive-jarvis
+
+# Compile Typescript
+RUN tsc
+
+# Show current folders
+RUN ls
+
+CMD [ "pm2-runtime", "start", "ecosystem.config.js", "--env", "production" ]

@@ -1,0 +1,86 @@
+{
+  "RPC_NODES": [
+    "https://anyx.io",
+    "https://api.hivekings.com",
+    "https://api.hive.blog",
+    "https://api.openhive.network"
+  ],
+  "STEEM_ENGINE_API": "https://scot-api.steem-engine.com",
+  "KEY_PAIRS": [
+    {
+      "name": "veryuniqueaccount2",
+      "type": "posting",
+      "key": "5HFAKSS"
+    },
+    {
+      "name": "veryuniqueaccount2",
+      "type": "active",
+      "key": "5JFJSFD"
+    },
+    {
+      "name": "veryuniqueaccount2",
+      "type": "memo",
+      "key": "5JFJSFD"
+    }
+  ],
+  "GENERAL": {
+    "minimum_hive_for_powerup": 0,
+    "minimum_hive_for_transfer": 0,
+    "minimum_hive_for_delegation": 2,
+    "interval_in_minutes": 30,
+    "test_mode": false
+  },
+  "ACCOUNTS": [
+    {
+      "name": "veryuniqueaccount1",
+      "claim_rewards": true,
+      "key_account": "veryuniqueaccount2",
+      "actions": [
+        {
+          "action_type": "powerup",
+          "to": "veryuniqueaccount2",
+          "asset": "HIVE",
+          "keep": 5,
+          "memo": "yourmemo"
+        },
+        {
+          "action_type": "transfer",
+          "to": "veryuniqueexchange",
+          "asset": "HBD",
+          "memo": "12345yourexchangeid",
+          "encrypted": true
+        },
+        {
+          "action_type": "delegate",
+          "to": ["veryuniqueaccount2", "veryuniqueaccount3"],
+          "keep": 5,
+          "percentage": [60, 40]
+        }
+      ]
+    },
+    {
+      "name": "veryuniqueaccount2",
+      "claim_rewards": true,
+      "claim_accounts": true,
+      "keep_rc": 50,
+      "claim_amount": 5,
+      "key_account": "veryuniqueaccount2",
+      "actions": [
+        {
+          "action_type": "delegate",
+          "to": "veryuniqueaccount3",
+          "percentage": 100
+        }
+      ]
+    },
+    {
+      "name": "veryuniqueaccount3",
+      "claim_rewards": true,
+      "claim_accounts": true,
+      "keep_rc": 90,
+      "claim_amount": 1,
+      "key_account": "veryuniqueaccount2",
+      "actions": []
+    }
+  ]
+}

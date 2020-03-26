@@ -1,0 +1,58 @@
+{
+  "name": "hive-jarvis",
+  "version": "1.0.0",
+  "description": "Your personal assistant for Hive",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
+    "start": "cross-env NODE_ENV=production ts-node src/index.ts",
+    "test": "jest",
+    "lint": "eslint --ext .ts,.js,.vue . --ignore-path .gitignore ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/therealwolf42/hive-jarvis.git"
+  },
+  "author": "therealwolf42",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/therealwolf42/hive-jarvis/issues"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js}": [
+      "yarn lint"
+    ]
+  },
+  "homepage": "https://github.com/therealwolf42/hive-jarvis#readme",
+  "dependencies": {
+    "@hivechain/dhive": "^0.13.0",
+    "@types/node": "^12.12.31",
+    "axios": "^0.18.1",
+    "convict": "^4.3.2",
+    "cross-env": "^5.2.0",
+    "dotenv": "^5.0.0",
+    "steem": "^0.7.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.9",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "jest": "^24.1.0",
+    "lint-staged": "^10.0.9",
+    "nodemon": "^1.18.10",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^8.8.1",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.8.3"
+  }
+}
