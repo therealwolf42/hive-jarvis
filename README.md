@@ -44,10 +44,10 @@ cp steem-jarvis/configs/config.json hive-jarvis/configs/config.json
 However, you can also run node manually, with PM2 or your favourite program.
 
 ```
-Requirement: Node >= 8
+Requirement: Node >= 10
 sudo apt update
 sudo apt install -y curl software-properties-common gnupg build-essential libssl-dev
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
 sudo apt install -y nodejs
 sudo npm i npm@latest -g
 ```
