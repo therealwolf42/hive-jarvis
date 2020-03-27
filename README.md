@@ -16,13 +16,27 @@ It is recommended to use Docker.
 ```
 git clone https://github.com/therealwolf42/hive-jarvis.git
 cd hive-jarvis
+
+# Scripts needs special rights
 chmod +x run.sh
+
+# If you haven't installed Docket yet
 ./run.sh install_docker
 
+# Do you have a config already from steem-jarvis? Copy it now
+# Make sure you use the correct folder names
+cp steem-jarvis/configs/config.json hive-jarvis/configs/config.json
+
 # Choose MODE (Default: development => testing-mode without broadcasts to blockchain)
+# For example: ./run.sh build production
+# If you haven't run it yet (especially the new Hive version)
+# then please run development first to test if everything works
 ./run.sh build MODE # MODE is either production OR development
-./run.sh start
-To get a list of possible commands, use: ./run.sh help
+
+# To (re-)start the scripts
+./run.sh restart
+
+# To get a list of possible commands, use: ./run.sh help
 ```
 
 ### Manual Installation
