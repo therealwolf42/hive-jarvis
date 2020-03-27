@@ -6,6 +6,7 @@ Jarvis (for Hive) is a script that automates essential functions for your Hive a
 - Power-up HIVE to your specified account
 - Delegate HIVEPOWER to a specified account[s]
 - Claim HBD, HIVE & HIVEPOWER rewards
+- Claim Account Creation Tokens
 
 ## Getting Started
 
