@@ -6,6 +6,7 @@ Jarvis (for Hive) is a script that automates essential functions for your Hive a
 - Power-up HIVE to your specified account
 - Delegate HIVEPOWER to a specified account[s]
 - Claim HBD, HIVE & HIVEPOWER rewards
+- Claim Account Creation Tokens
 
 ## Getting Started
 
@@ -16,13 +17,27 @@ It is recommended to use Docker.
 ```
 git clone https://github.com/therealwolf42/hive-jarvis.git
 cd hive-jarvis
+
+# Scripts needs special rights
 chmod +x run.sh
+
+# If you haven't installed Docket yet
 ./run.sh install_docker
 
+# Do you have a config already from steem-jarvis? Copy it now
+# Make sure you use the correct folder names
+cp steem-jarvis/configs/config.json hive-jarvis/configs/config.json
+
 # Choose MODE (Default: development => testing-mode without broadcasts to blockchain)
+# For example: ./run.sh build production
+# If you haven't run it yet (especially the new Hive version)
+# then please run development first to test if everything works
 ./run.sh build MODE # MODE is either production OR development
-./run.sh start
-To get a list of possible commands, use: ./run.sh help
+
+# To (re-)start the scripts
+./run.sh restart
+
+# To get a list of possible commands, use: ./run.sh help
 ```
 
 ### Manual Installation
@@ -30,10 +45,10 @@ To get a list of possible commands, use: ./run.sh help
 However, you can also run node manually, with PM2 or your favourite program.
 
 ```
-Requirement: Node >= 8
+Requirement: Node >= 10
 sudo apt update
 sudo apt install -y curl software-properties-common gnupg build-essential libssl-dev
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
 sudo apt install -y nodejs
 sudo npm i npm@latest -g
 ```
