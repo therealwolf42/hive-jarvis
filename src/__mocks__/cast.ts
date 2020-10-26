@@ -1,4 +1,4 @@
-import {Asset, Operation, PrivateKey} from '@hivechain/dhive'
+import {Asset, Operation, PrivateKey} from '@hiveio/dhive'
 import _g = require('../_g')
 import {calculate_delegation, convertFloat, isDryRun} from '../helpers'
 
@@ -94,8 +94,8 @@ export const claim_reward_balance = async (
         'claim_reward_balance',
         {
           account: name,
-          reward_sbd: reward_hbd_balance,
-          reward_steem: reward_hive_balance,
+          reward_hbd: reward_hbd_balance,
+          reward_hive: reward_hive_balance,
           reward_vests: reward_vesting_balance,
         },
       ]

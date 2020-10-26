@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv'
 import _g = require('./_g')
 dotenv.config({path: '.env'})
-import * as dhive from '@hivechain/dhive'
+import * as dhive from '@hiveio/dhive'
 
 import {config} from './_g'
 import {
@@ -121,8 +121,8 @@ export const claim_reward_balance = async (
       'claim_reward_balance',
       {
         account: name,
-        reward_sbd: reward_hbd_balance,
-        reward_steem: reward_hive_balance,
+        reward_hbd: reward_hbd_balance,
+        reward_hive: reward_hive_balance,
         reward_vests: reward_vesting_balance,
       },
     ]

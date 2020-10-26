@@ -2,9 +2,9 @@ import * as dotenv from 'dotenv'
 dotenv.config({path: '.env'})
 import axios from 'axios'
 import {create} from 'domain'
-import * as dhive from '@hivechain/dhive'
+import * as dhive from '@hiveio/dhive'
 import {type} from 'os'
-import * as steemJS from 'steem'
+import * as hiveJS from '@hiveio/hive-js'
 import _g = require('./_g')
 
 import fs from 'fs'
@@ -138,16 +138,13 @@ export const update_accounts = async (
 }
 
 export const update_properties = async () => {
-  const properties = await _g.client.call(
-    'condenser_api',
-    'get_dynamic_global_properties',
-  )
+  const properties = await _g.client.database.getDynamicGlobalProperties()
   _g.properties.hive_per_mvests =
-    (convertFloat(properties.total_vesting_fund_steem) /
+    (convertFloat(properties.total_vesting_fund_hive) /
       convertFloat(properties.total_vesting_shares)) *
     1e6
   _g.properties.total_vesting_fund = convertFloat(
-    properties.total_vesting_fund_steem,
+    properties.total_vesting_fund_hive,
   )
   _g.properties.total_vesting_shares = convertFloat(
     properties.total_vesting_shares,
@@ -199,7 +196,7 @@ export const encode = (
   private_memo_key = process.env.voting_memo,
 ) => {
   try {
-    return steemJS.memo.encode(private_memo_key, public_memo_key, `#${memo}`)
+    return hiveJS.memo.encode(private_memo_key, public_memo_key, `#${memo}`)
   } catch (e) {
     return null
   }
@@ -230,10 +227,12 @@ export const claim_account = async (
 
 export const get_pending_tokens = async (account) => {
   const pending = []
-  const tokens = (await axios.get(
-    `${_g.config.STEEM_ENGINE_API ||
-      'https://scot-api.steem-engine.com'}/@${account}`,
-  )).data
+  const tokens = (
+    await axios.get(
+      `${_g.config.STEEM_ENGINE_API ||
+        'https://scot-api.steem-engine.com'}/@${account}`,
+    )
+  ).data
   if (!tokens) return []
   for (const symbol in tokens) {
     if (tokens[symbol].pending_token > 0) {
@@ -250,9 +249,19 @@ export const checkOldConfig = () => {
   if (config.RPC_NODES.includes('https://api.steemit.com')) {
     config.RPC_NODES = [
       'https://anyx.io',
-      'https://api.hivekings.com',
       'https://api.hive.blog',
+      'https://api.deathwing.me',
+      'https://api.followbtcnews.com',
+      'https://api.hivekings.com',
       'https://api.openhive.network',
+      'https://api.pharesim.me',
+      'https://hive.3speak.online',
+      'https://hive.roelandp.nl',
+      'https://hived.hive-engine.com',
+      'https://hived.privex.io',
+      'https://rpc.ausbit.dev',
+      'https://rpc.esteem.app',
+      'https://techcoderx.com',
     ]
   }
 
@@ -291,4 +300,72 @@ const replaceObjectKey = (obj: object, wrong: string, valid: string) => {
     newObj[key.replace(wrong, valid)] = obj[key]
   }
   return newObj
+}
+
+/**
+ * Fetch API wrapper that retries until timeout is reached.
+ */
+export async function retryingFetch(
+  currentAddress: string,
+  allAddresses: string | string[],
+  opts: any,
+  timeout: number,
+  failoverThreshold: number,
+  backoff: (tries: number) => number,
+  fetchTimeout?: (tries: number) => number,
+) {
+  let start = Date.now()
+  let tries = 0
+  let round = 0
+  do {
+    try {
+      if (fetchTimeout) {
+        opts.timeout = fetchTimeout(tries)
+      }
+      const response = await fetch(currentAddress, opts)
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+      }
+      return {response: await response.json(), currentAddress}
+    } catch (error) {
+      if (timeout !== 0 && Date.now() - start > timeout) {
+        if (
+          timeoutErrors.indexOf(error.code) !== -1 &&
+          Array.isArray(allAddresses) &&
+          allAddresses.length > 1
+        ) {
+          if (round < failoverThreshold) {
+            start = Date.now()
+            tries = -1
+            if (failoverThreshold > 0) {
+              round++
+            }
+            currentAddress = failover(currentAddress, allAddresses)
+          } else {
+            if (
+              timeoutErrors.indexOf(error.code) !== -1 &&
+              Array.isArray(allAddresses)
+            ) {
+              error.message = `[${
+                error.code
+              }] tried ${failoverThreshold} times with ${allAddresses.join(
+                ',',
+              )}`
+              throw error
+            } else {
+              throw error
+            }
+          }
+        } else {
+          throw error
+        }
+      }
+      await sleep(backoff(tries++))
+    }
+  } while (true)
+}
+
+const failover = (url: string, urls: string[]) => {
+  const index = urls.indexOf(url)
+  return urls.length === index + 1 ? urls[0] : urls[index + 1]
 }

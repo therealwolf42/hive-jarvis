@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv'
 dotenv.config({path: '.env'})
 import _g = require('./_g')
 
-import {PrivateKey} from '@hivechain/dhive'
+import {PrivateKey} from '@hiveio/dhive'
 import {isArray} from 'util'
 import {
   cast,
@@ -31,7 +31,7 @@ const start = async () => {
       `Starting Jarvis in ${isDryRun() ? 'Test Mode' : 'Production Mode'}`,
     )
     console.log('\n' + '----------------------------' + '\n')
-    await checkOldConfig()
+    checkOldConfig()
     await main()
   } catch (error) {
     console.error('start', error)
@@ -78,14 +78,15 @@ const main = async () => {
             claim_reward_balance,
             {
               name,
-              reward_hbd_balance: hive_account.reward_sbd_balance, // TODO: change once RPCs changed
-              reward_hive_balance: hive_account.reward_steem_balance, // TODO: change once RPCs changed
+              reward_hbd_balance: hive_account.reward_hbd_balance,
+              reward_hive_balance: hive_account.reward_hive_balance,
               reward_vesting_balance: hive_account.reward_vesting_balance,
-              reward_vesting_hive: hive_account.reward_vesting_steem, // TODO: change once RPCs changed
+              reward_vesting_hive: hive_account.reward_vesting_hive,
             },
             posting_key,
           )
-          await cast(claim_steemengine, {name}, posting_key)
+          // Disable until further
+          // await cast(claim_steemengine, {name}, posting_key)
         }
         if (claim_accounts && active_key) {
           if (!claim_amount || claim_amount <= 0) claim_amount = 1
@@ -146,7 +147,7 @@ const transfer_powerup_action = async (
 ) => {
   const balance: string =
     asset === 'HBD'
-      ? account.hive_account.sbd_balance
+      ? account.hive_account.hbd_balance
       : account.hive_account.balance
   let amount = convertFloat(balance)
 

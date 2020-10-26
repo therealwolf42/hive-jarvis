@@ -1,4 +1,4 @@
-import * as dhive from '@hivechain/dhive'
+import * as dhive from '@hiveio/dhive'
 import _g = require('../_g')
 
 jest.mock('../cast')

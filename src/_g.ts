@@ -1,10 +1,11 @@
-import * as dhive from '@hivechain/dhive'
+import * as dhive from '@hiveio/dhive'
 
 export let config = require('../configs/config.js').get() // tslint:disable-line
 
-export let current_node: string = config.RPC_NODES[0]
-export let client: dhive.Client = new dhive.Client(current_node, {
-  timeout: 8 * 1000,
+export let client: dhive.Client = new dhive.Client(config.RPC_NODES, {
+  timeout: 2 * 1000,
+  rebrandedApi: true,
+  consoleOnFailover: true,
 }) // TESTNET: dhive.Client.testnet({ timeout: 8 * 1000 })
 
 export let wait_sec = async (sec) => {

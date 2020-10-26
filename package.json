@@ -30,13 +30,13 @@
   },
   "homepage": "https://github.com/therealwolf42/hive-jarvis#readme",
   "dependencies": {
-    "@hivechain/dhive": "^0.13.0",
+    "@hiveio/dhive": "^0.14.8",
+    "@hiveio/hive-js": "^0.8.8",
     "@types/node": "^12.12.31",
     "axios": "^0.18.1",
     "convict": "^4.3.2",
     "cross-env": "^5.2.0",
-    "dotenv": "^5.0.0",
-    "steem": "^0.7.4"
+    "dotenv": "^5.0.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.9",
