@@ -34,7 +34,7 @@
     "@hiveio/hive-js": "^0.8.8",
     "@types/node": "^12.12.31",
     "axios": "^0.21.2",
-    "convict": "^4.3.2",
+    "convict": "^6.2.2",
     "cross-env": "^5.2.0",
     "dotenv": "^5.0.0"
   },
